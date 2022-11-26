@@ -2,6 +2,7 @@
 	"name": "cards-against-humanity",
 	"private": true,
 	"workspaces": [
+		"backend",
 		"frontend",
 		"packages/*"
 	],
