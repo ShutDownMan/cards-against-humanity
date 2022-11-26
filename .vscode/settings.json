@@ -1,3 +1,10 @@
 {
-	"cSpell.words": ["Parens", "rushstack", "Turborepo"]
+	"cSpell.words": [
+		"Parens",
+		"rushstack",
+		"Turborepo"
+	],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
 }
