@@ -1,5 +1,5 @@
 {
-	"name": "frontend",
+	"name": "@cards-against-humanity/frontend",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -10,14 +10,21 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "18.2.0",
+		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
-		"@types/react": "^18.0.24",
-		"@types/react-dom": "^18.0.8",
-		"@vitejs/plugin-react": "^2.2.0",
-		"typescript": "^4.6.4",
-		"vite": "^3.2.3"
+		"@cards-against-humanity/eslint-config-custom": "*",
+		"@cards-against-humanity/typescript-config-custom": "*",
+		"@types/react-dom": "18.0.8",
+		"@types/react": "18.0.24",
+		"@vitejs/plugin-react": "2.2.0",
+		"vite": "3.2.3"
+	},
+	"eslintConfig": {
+		"root": true,
+		"extends": [
+			"@cards-against-humanity/eslint-config-custom"
+		]
 	}
 }

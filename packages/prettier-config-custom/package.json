@@ -1,0 +1,10 @@
+{
+	"name": "@cards-against-humanity/prettier-config-custom",
+	"version": "0.0.0",
+	"private": true,
+	"license": "MIT",
+	"main": "./src/index.js",
+	"dependencies": {
+		"prettier": "2.8.0"
+	}
+}
