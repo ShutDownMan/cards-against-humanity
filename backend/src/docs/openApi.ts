@@ -19,4 +19,4 @@ export const openApiInstance = new OpenApi(
 openApiInstance.setServers([{ url: 'http://localhost:3000' }])
 
 /** Initialize Docs */
-initCardsDocs()
+initCardsDocs({ path: '/api/cards', tags: ['Cards'] })

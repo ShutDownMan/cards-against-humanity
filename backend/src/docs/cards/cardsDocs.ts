@@ -1,20 +1,39 @@
 import { textPlain } from 'ts-openapi'
-import { PathInput } from 'ts-openapi/lib/openapi/openapi.types'
 
 import { openApiInstance } from '../openApi'
 
-export const initCardsDocs = () => {
-	const pathInput: PathInput = {
-		get: {
-			description: 'Test',
-			operationId: 'test-id',
-			responses: {
-				200: textPlain('Test'),
-			},
-			summary: 'Get',
-			tags: ['Api'],
-		},
-	}
+import { InitDocs } from '../../types/docTypes'
 
-	openApiInstance.addPath('/api/cards', pathInput, true)
+export const initCardsDocs = ({ path, tags }: InitDocs) => {
+	openApiInstance.addPath(
+		path,
+		{
+			post: {
+				description: 'Create new card',
+				operationId: 'create-card-id',
+				responses: {
+					200: textPlain('create tes'),
+				},
+				summary: 'Test cre',
+				tags: tags,
+			},
+		},
+		true,
+	)
+
+	openApiInstance.addPath(
+		path,
+		{
+			get: {
+				description: 'Test',
+				operationId: 'test-id',
+				responses: {
+					200: textPlain('Test'),
+				},
+				summary: 'Get',
+				tags: tags,
+			},
+		},
+		true,
+	)
 }
