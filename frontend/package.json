@@ -10,15 +10,21 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@emotion/react": "^11.10.5",
+		"@mantine/carousel": "^5.9.0",
+		"@mantine/core": "^5.9.0",
+		"@mantine/hooks": "^5.9.0",
+		"embla-carousel-react": "^7.0.5",
 		"react": "18.2.0",
-		"react-dom": "18.2.0"
+		"react-dom": "18.2.0",
+		"react-router-dom": "^6.4.4"
 	},
 	"devDependencies": {
 		"@cards-against-humanity/eslint-config-custom": "*",
 		"@cards-against-humanity/prettier-config-custom": "*",
 		"@cards-against-humanity/typescript-config-custom": "*",
-		"@types/react-dom": "18.0.8",
 		"@types/react": "18.0.24",
+		"@types/react-dom": "18.0.8",
 		"@vitejs/plugin-react": "2.2.0",
 		"vite": "3.2.3"
 	},
