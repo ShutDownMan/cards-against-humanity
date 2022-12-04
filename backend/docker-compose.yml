@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+
+  postgres-database:
+    build: ./jacah_database
+    restart: always
+    environment:
+      POSTGRES_USER: jacah_user
+      POSTGRES_PASSWORD: 123456sete
+      POSTGRES_DB: jacah_db
+
+  elixir-api:
+    build: ./jacah_backend
+    restart: always
+    environment:
+      DEBUG: 1
