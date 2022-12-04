@@ -5,6 +5,8 @@ services:
   postgres-database:
     build: ./jacah_database
     restart: always
+    ports:
+      - 5443:5432
     environment:
       POSTGRES_USER: jacah_user
       POSTGRES_PASSWORD: 123456sete
@@ -15,3 +17,8 @@ services:
     restart: always
     environment:
       DEBUG: 1
+      POSTGRES_USER: jacah_user
+      POSTGRES_PASSWORD: 123456sete
+      POSTGRES_ADDRESS: postgres-database
+      POSTGRES_DB: jacah_db
+      POSTGRES_PORT: 5432
