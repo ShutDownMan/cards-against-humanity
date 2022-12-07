@@ -9,6 +9,13 @@ defmodule JacahBackendWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit]
+
+    resources "/card-packs", CardPacksController, except: [:new, :edit]
+    resources "/cards", CardsController, except: [:new, :edit]
+
+    # resources "/rooms", RoomsController, except: [:new, :edit]
+
+    # resources "/games", GamesController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
