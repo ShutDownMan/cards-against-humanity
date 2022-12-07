@@ -12,9 +12,9 @@ services:
     ports:
       - 5443:5432
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "jacah_db"]
       interval: 30s
@@ -30,16 +30,17 @@ services:
       network: default
       args:
         - MIX_ENV=${MIX_ENV}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-        - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_DB=${POSTGRES_DB}
-        - POSTGRES_HOST=pgdatabase
-        - POSTGRES_PORT=${POSTGRES_PORT}
+        - RUN_DATABASE_SETUP=${RUN_DATABASE_SETUP}
     restart: always
     ports:
       - 4000:4000
       - 4001:4001
     environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: pgdatabase
+      POSTGRES_PORT: ${POSTGRES_PORT}
       DEBUG: 1
 
 networks:

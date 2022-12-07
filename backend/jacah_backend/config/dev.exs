@@ -2,11 +2,11 @@ import Config
 
 # Configure your database
 config :jacah_backend, JacahBackend.Repo,
-  username: System.get_env("POSTGRES_USER", "jacah_user"),
+  username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "123456sete"),
   hostname: System.get_env("POSTGRES_HOST", "localhost"),
   database: System.get_env("POSTGRES_DB", "jacah_db"),
-  port:  System.get_env("POSTGRES_PORT", "5443"),
+  port:  System.get_env("POSTGRES_PORT", "5432"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

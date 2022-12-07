@@ -29,13 +29,10 @@ ARG POSTGRES_PASSWORD
 ARG POSTGRES_DB
 ARG POSTGRES_HOST
 ARG POSTGRES_PORT
+ARG RUN_DATABASE_SETUP
 
 # setup the database
-RUN echo "user = \"$POSTGRES_USER\" password = \"$POSTGRES_PASSWORD\" database = \"$POSTGRES_DB\""
-RUN echo "host = \"$POSTGRES_HOST\" port = \"$POSTGRES_PORT\""
-RUN ping -c 4 localhost
-RUN mix ecto.create
-RUN mix ecto.migrate
+RUN if [ "$RUN_DATABASE_SETUP" = "true" ]; then mix ecto.setup; fi
 
 # expose port 4000
 EXPOSE 4000
