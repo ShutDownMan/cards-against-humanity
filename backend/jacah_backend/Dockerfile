@@ -37,4 +37,5 @@ ARG RUN_DATABASE_SETUP
 
 # setup the database
 # start the server
-CMD ["sh", "-c", "mix ecto.setup", "mix", "phx.server"]
+CMD ["/bin/sh", "-c", "mix ecto.setup; mix phx.server"]
+# CMD ["sh", "-c", "ping pgdatabase"]
