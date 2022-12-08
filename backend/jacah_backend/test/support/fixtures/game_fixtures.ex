@@ -5,21 +5,14 @@ defmodule JacahBackend.GameFixtures do
   """
 
   @doc """
-  Generate a unique card_pack id.
-  """
-  def unique_card_pack_id do
-    raise "implement the logic to generate a unique card_pack id"
-  end
-
-  @doc """
   Generate a card_pack.
   """
   def card_pack_fixture(attrs \\ %{}) do
     {:ok, card_pack} =
       attrs
       |> Enum.into(%{
+        id: attrs[:id] || "65c0b9c0-e31f-11e4-aace-600308960662",
         description: "some description",
-        id: unique_card_pack_id(),
         name: "some name"
       })
       |> JacahBackend.Game.create_card_pack()
@@ -28,24 +21,18 @@ defmodule JacahBackend.GameFixtures do
   end
 
   @doc """
-  Generate a unique cards id.
+  Generate a card and associate it with the given card_pack.
+  passing the card pack id
   """
-  def unique_cards_id do
-    raise "implement the logic to generate a unique cards id"
-  end
-
-  @doc """
-  Generate a cards.
-  """
-  def cards_fixture(attrs \\ %{}) do
-    {:ok, cards} =
+  def card_fixture(pack_id, attrs \\ %{}) do
+    {:ok, card} =
       attrs
       |> Enum.into(%{
         content: "some content",
-        id: unique_cards_id()
+        pack_id: pack_id
       })
-      |> JacahBackend.Game.create_cards()
+      |> JacahBackend.Game.create_card()
 
-    cards
+    card
   end
 end

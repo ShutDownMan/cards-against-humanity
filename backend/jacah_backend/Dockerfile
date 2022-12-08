@@ -24,6 +24,10 @@ RUN mix deps.get
 # copy the rest of the files
 COPY . .
 
+# expose port 4000
+EXPOSE 4000
+EXPOSE 4001
+
 ARG POSTGRES_USER
 ARG POSTGRES_PASSWORD
 ARG POSTGRES_DB
@@ -32,11 +36,5 @@ ARG POSTGRES_PORT
 ARG RUN_DATABASE_SETUP
 
 # setup the database
-RUN if [ "$RUN_DATABASE_SETUP" = "true" ]; then mix ecto.setup; fi
-
-# expose port 4000
-EXPOSE 4000
-EXPOSE 4001
-
-# run the app
-CMD ["mix", "phx.server"]
+# start the server
+CMD ["sh", "-c", "mix ecto.setup", "mix", "phx.server"]

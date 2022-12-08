@@ -4,7 +4,7 @@ defmodule JacahBackendWeb.UserController do
   alias JacahBackend.Admin
   alias JacahBackend.Admin.User
 
-  action_fallback JacahBackendWeb.FallbackController
+  action_fallback(JacahBackendWeb.FallbackController)
 
   def index(conn, _params) do
     users = Admin.list_users()
@@ -17,6 +17,11 @@ defmodule JacahBackendWeb.UserController do
       |> put_status(:created)
       |> put_resp_header("location", Routes.user_path(conn, :show, user))
       |> render("show.json", user: user)
+    else
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(JacahBackendWeb.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -30,6 +35,11 @@ defmodule JacahBackendWeb.UserController do
 
     with {:ok, %User{} = user} <- Admin.update_user(user, user_params) do
       render(conn, "show.json", user: user)
+    else
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(JacahBackendWeb.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -38,6 +48,8 @@ defmodule JacahBackendWeb.UserController do
 
     with {:ok, %User{}} <- Admin.delete_user(user) do
       send_resp(conn, :no_content, "")
+    else
+      {:error, :not_found} -> send_resp(conn, :not_found, "")
     end
   end
 end

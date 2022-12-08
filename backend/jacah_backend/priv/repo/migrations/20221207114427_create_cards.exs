@@ -4,14 +4,12 @@ defmodule JacahBackend.Repo.Migrations.CreateCards do
   def change do
     create table(:cards, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :id, :uuid
       add :content, :string
-      add :pack_id, references(:"card-packs", on_delete: :nothing, type: :binary_id)
+      add :pack_id, references(:card_pack, on_delete: :nothing, type: :binary_id)
 
       timestamps()
     end
 
-    create unique_index(:cards, [:id])
     create index(:cards, [:pack_id])
   end
 end

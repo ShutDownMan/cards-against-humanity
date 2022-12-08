@@ -3,16 +3,16 @@ defmodule JacahBackend.GameTest do
 
   alias JacahBackend.Game
 
-  describe "card-packs" do
+  describe "card_pack" do
     alias JacahBackend.Game.CardPack
 
     import JacahBackend.GameFixtures
 
     @invalid_attrs %{description: nil, id: nil, name: nil}
 
-    test "list_card-packs/0 returns all card-packs" do
+    test "list_card_pack/0 returns all card_pack" do
       card_pack = card_pack_fixture()
-      assert Game.list_card-packs() == [card_pack]
+      assert Game.list_card_pack() == [card_pack]
     end
 
     test "get_card_pack!/1 returns the card_pack with given id" do
@@ -21,11 +21,10 @@ defmodule JacahBackend.GameTest do
     end
 
     test "create_card_pack/1 with valid data creates a card_pack" do
-      valid_attrs = %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", name: "some name"}
+      valid_attrs = %{description: "some description", name: "some name"}
 
       assert {:ok, %CardPack{} = card_pack} = Game.create_card_pack(valid_attrs)
       assert card_pack.description == "some description"
-      assert card_pack.id == "7488a646-e31f-11e4-aace-600308960662"
       assert card_pack.name == "some name"
     end
 
@@ -35,11 +34,10 @@ defmodule JacahBackend.GameTest do
 
     test "update_card_pack/2 with valid data updates the card_pack" do
       card_pack = card_pack_fixture()
-      update_attrs = %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", name: "some updated name"}
+      update_attrs = %{description: "some updated description", name: "some updated name"}
 
       assert {:ok, %CardPack{} = card_pack} = Game.update_card_pack(card_pack, update_attrs)
       assert card_pack.description == "some updated description"
-      assert card_pack.id == "7488a646-e31f-11e4-aace-600308960668"
       assert card_pack.name == "some updated name"
     end
 
@@ -61,59 +59,57 @@ defmodule JacahBackend.GameTest do
     end
   end
 
-  describe "cards" do
-    alias JacahBackend.Game.Cards
+  describe "card" do
+    alias JacahBackend.Game.Card
 
     import JacahBackend.GameFixtures
 
     @invalid_attrs %{content: nil, id: nil}
 
-    test "list_cards/0 returns all cards" do
-      cards = cards_fixture()
-      assert Game.list_cards() == [cards]
+    test "list_card/0 returns all card" do
+      card = card_fixture()
+      assert Game.list_cards() == [card]
     end
 
-    test "get_cards!/1 returns the cards with given id" do
-      cards = cards_fixture()
-      assert Game.get_cards!(cards.id) == cards
+    test "get_card!/1 returns the card with given id" do
+      card = card_fixture()
+      assert Game.get_card!(card.id) == card
     end
 
-    test "create_cards/1 with valid data creates a cards" do
-      valid_attrs = %{content: "some content", id: "7488a646-e31f-11e4-aace-600308960662"}
+    test "create_card/1 with valid data creates a card" do
+      valid_attrs = %{content: "some content"}
 
-      assert {:ok, %Cards{} = cards} = Game.create_cards(valid_attrs)
-      assert cards.content == "some content"
-      assert cards.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert {:ok, %Card{} = card} = Game.create_card(valid_attrs)
+      assert card.content == "some content"
     end
 
-    test "create_cards/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Game.create_cards(@invalid_attrs)
+    test "create_card/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Game.create_card(@invalid_attrs)
     end
 
-    test "update_cards/2 with valid data updates the cards" do
-      cards = cards_fixture()
-      update_attrs = %{content: "some updated content", id: "7488a646-e31f-11e4-aace-600308960668"}
+    test "update_card/2 with valid data updates the card" do
+      card = card_fixture()
+      update_attrs = %{content: "some updated content"}
 
-      assert {:ok, %Cards{} = cards} = Game.update_cards(cards, update_attrs)
-      assert cards.content == "some updated content"
-      assert cards.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert {:ok, %Card{} = card} = Game.update_card(card, update_attrs)
+      assert card.content == "some updated content"
     end
 
-    test "update_cards/2 with invalid data returns error changeset" do
-      cards = cards_fixture()
-      assert {:error, %Ecto.Changeset{}} = Game.update_cards(cards, @invalid_attrs)
-      assert cards == Game.get_cards!(cards.id)
+    test "update_card/2 with invalid data returns error changeset" do
+      card = card_fixture()
+      assert {:error, %Ecto.Changeset{}} = Game.update_card(card, @invalid_attrs)
+      assert card == Game.get_card!(card.id)
     end
 
-    test "delete_cards/1 deletes the cards" do
-      cards = cards_fixture()
-      assert {:ok, %Cards{}} = Game.delete_cards(cards)
-      assert_raise Ecto.NoResultsError, fn -> Game.get_cards!(cards.id) end
+    test "delete_card/1 deletes the card" do
+      card = card_fixture()
+      assert {:ok, %Card{}} = Game.delete_card(card)
+      assert_raise Ecto.NoResultsError, fn -> Game.get_card!(card.id) end
     end
 
-    test "change_cards/1 returns a cards changeset" do
-      cards = cards_fixture()
-      assert %Ecto.Changeset{} = Game.change_cards(cards)
+    test "change_card/1 returns a card changeset" do
+      card = card_fixture()
+      assert %Ecto.Changeset{} = Game.change_card(card)
     end
   end
 end
