@@ -14,24 +14,38 @@ defmodule JacahBackendWeb.CardControllerTest do
   describe "index" do
     test "lists all card", %{conn: conn} do
       conn = get(conn, Routes.card_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+
+      Enum.all?(json_response(conn, 200)["data"], fn card ->
+        assert %{
+                 "id" => id,
+                 "content" => content,
+                 "pack_id" => pack_id,
+                 "card_type" => card_type
+               } = card
+      end)
     end
   end
 
   describe "create card" do
     test "renders card when data is valid", %{conn: conn} do
       # create card pack with id
-      {:ok, card_pack} = JacahBackend.Game.create_card_pack(%{
-          id: "65c0b9c0-e31f-11e4-aace-600308960662",
+      {:ok, card_pack} =
+        JacahBackend.Game.create_card_pack(%{
           description: "some description",
           name: "some name"
         })
-        pack_id = card_pack.id
 
-      conn = post(conn, Routes.card_path(conn, :create), card: %{
-        content: "some content",
-        pack_id: card_pack.id
-      })
+      pack_id = card_pack.id
+
+      conn =
+        post(conn, Routes.card_path(conn, :create),
+          card: %{
+            content: "some content",
+            pack_id: card_pack.id,
+            card_type: "answer"
+          }
+        )
+
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.card_path(conn, :show, id))
@@ -39,7 +53,8 @@ defmodule JacahBackendWeb.CardControllerTest do
       assert %{
                "id" => ^id,
                "content" => "some content",
-               "pack_id" => ^pack_id
+               "pack_id" => ^pack_id,
+               "card_type" => "answer"
              } = json_response(conn, 200)["data"]
     end
 
@@ -55,10 +70,15 @@ defmodule JacahBackendWeb.CardControllerTest do
     test "renders card when data is valid", %{conn: conn, card: %Card{id: id} = card} do
       pack_id = card.pack_id
 
-      conn = put(conn, Routes.card_path(conn, :update, card), card: %{
-        content: "some updated content",
-        pack_id: pack_id
-      })
+      conn =
+        put(conn, Routes.card_path(conn, :update, card),
+          card: %{
+            content: "some updated content",
+            pack_id: pack_id,
+            card_type: "answer"
+          }
+        )
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.card_path(conn, :show, id))
@@ -66,7 +86,8 @@ defmodule JacahBackendWeb.CardControllerTest do
       assert %{
                "id" => ^id,
                "content" => "some updated content",
-               "pack_id" => ^pack_id
+               "pack_id" => ^pack_id,
+               "card_type" => "answer"
              } = json_response(conn, 200)["data"]
     end
 
@@ -91,10 +112,11 @@ defmodule JacahBackendWeb.CardControllerTest do
 
   defp create_card(_) do
     # create card pack with id
-    {:ok, card_pack} = JacahBackend.Game.create_card_pack(%{
-      description: "some description",
-      name: "some name"
-    })
+    {:ok, card_pack} =
+      JacahBackend.Game.create_card_pack(%{
+        description: "some description",
+        name: "some name"
+      })
 
     card = card_fixture(card_pack.id)
 

@@ -36,5 +36,14 @@ Repo.insert!(%CardPack{
 Repo.insert!(%Card{
   id: "9faa9a9a-9faa-9faa-9faa-9faa9faa9faa",
   content: "lorem ___ dolor sit amet",
-  pack_id: "65c0b9c0-e31f-11e4-aace-600308960662"
+  pack_id: "65c0b9c0-e31f-11e4-aace-600308960662",
+  card_type: "question"
+})
+
+# insert a value on card
+Repo.insert!(%Card{
+  id: "888fd9c0-e31f-11e4-aace-600308960662",
+  content: "sua mother",
+  pack_id: "65c0b9c0-e31f-11e4-aace-600308960662",
+  card_type: "answer"
 })

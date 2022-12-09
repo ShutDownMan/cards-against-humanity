@@ -14,7 +14,8 @@ defmodule JacahBackendWeb.CardView do
     %{
       id: card.id,
       content: card.content,
-      pack_id: card.pack_id
+      pack_id: card.pack_id,
+      card_type: card.card_type,
     }
   end
 end

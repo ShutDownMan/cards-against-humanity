@@ -29,7 +29,8 @@ defmodule JacahBackend.GameFixtures do
       attrs
       |> Enum.into(%{
         content: "some content",
-        pack_id: pack_id
+        pack_id: pack_id,
+        card_type: "some card_type"
       })
       |> JacahBackend.Game.create_card()
 

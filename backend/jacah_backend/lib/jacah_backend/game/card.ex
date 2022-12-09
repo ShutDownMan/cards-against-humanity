@@ -7,6 +7,7 @@ defmodule JacahBackend.Game.Card do
   schema "cards" do
     field :content, :string
     field :pack_id, :binary_id
+    field :card_type, :string
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule JacahBackend.Game.Card do
   @doc false
   def changeset(card, attrs) do
     card
-    |> cast(attrs, [:content, :pack_id])
-    |> validate_required([:content, :pack_id])
+    |> cast(attrs, [:content, :pack_id, :card_type])
+    |> validate_required([:content, :pack_id, :card_type])
   end
 end
