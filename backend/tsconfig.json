@@ -1,6 +1,0 @@
-{
-	"extends": "@cards-against-humanity/typescript-config-custom/src/tsconfig-node.json",
-	"include": [
-		"src"
-	],
-}
