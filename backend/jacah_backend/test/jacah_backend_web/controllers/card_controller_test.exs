@@ -17,11 +17,11 @@ defmodule JacahBackendWeb.CardControllerTest do
 
       Enum.all?(json_response(conn, 200)["data"], fn card ->
         assert %{
-                 "id" => id,
-                 "content" => content,
-                 "pack_id" => pack_id,
-                 "card_type" => card_type
-               } = card
+          "id" => id,
+          "content" => content,
+          "pack_id" => pack_id,
+          "card_type" => card_type
+        } = card
       end)
     end
   end

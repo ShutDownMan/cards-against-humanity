@@ -6,18 +6,16 @@ defmodule JacahBackendWeb.UserControllerTest do
   alias JacahBackend.Admin.User
 
   @create_attrs %{
-    address: "some address",
     email: "some email",
     name: "some name",
     role: "some role"
   }
   @update_attrs %{
-    address: "some updated address",
     email: "some updated email",
     name: "some updated name",
     role: "some updated role"
   }
-  @invalid_attrs %{address: nil, email: nil, name: nil, role: nil}
+  @invalid_attrs %{email: nil, name: nil, role: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -26,7 +24,15 @@ defmodule JacahBackendWeb.UserControllerTest do
   describe "index" do
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+
+      Enum.all?(json_response(conn, 200)["data"], fn user ->
+        assert %{
+          "id" => id,
+          "email" => email,
+          "name" => name,
+          "role" => role
+        } = user
+      end)
     end
   end
 
@@ -39,7 +45,6 @@ defmodule JacahBackendWeb.UserControllerTest do
 
       assert %{
                "id" => ^id,
-               "address" => "some address",
                "email" => "some email",
                "name" => "some name",
                "role" => "some role"
@@ -63,7 +68,6 @@ defmodule JacahBackendWeb.UserControllerTest do
 
       assert %{
                "id" => ^id,
-               "address" => "some updated address",
                "email" => "some updated email",
                "name" => "some updated name",
                "role" => "some updated role"

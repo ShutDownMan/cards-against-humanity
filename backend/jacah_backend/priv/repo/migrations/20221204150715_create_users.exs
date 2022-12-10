@@ -7,7 +7,6 @@ defmodule JacahBackend.Repo.Migrations.CreateUsers do
       add :name, :string
       add :email, :string
       add :role, :string
-      add :address, :string
 
       timestamps()
     end

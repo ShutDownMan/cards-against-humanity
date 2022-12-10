@@ -5,7 +5,6 @@ defmodule JacahBackend.Admin.User do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
-    field :address, :string
     field :email, :string
     field :name, :string
     field :role, :string
@@ -16,8 +15,8 @@ defmodule JacahBackend.Admin.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :role, :address])
-    |> validate_required([:name, :email, :role, :address])
+    |> cast(attrs, [:name, :email, :role])
+    |> validate_required([:name, :email, :role])
     |> unique_constraint(:email)
   end
 end
