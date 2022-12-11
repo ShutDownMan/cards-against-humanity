@@ -4,6 +4,8 @@ import { FC } from 'react'
 
 import { GameCard } from '../../components'
 
+import './../../../../backend/jacah_backend/assets/js/game_socket.js'
+
 interface GameCardOption {
 	id: string
 	type: 'black' | 'white'
