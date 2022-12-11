@@ -17,6 +17,12 @@ defmodule JacahBackendWeb.CardPackController do
       |> put_status(:created)
       |> put_resp_header("location", Routes.card_pack_path(conn, :show, card_pack))
       |> render("show.json", card_pack: card_pack)
+    else
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> put_view(JacahBackendWeb.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
 
@@ -30,6 +36,12 @@ defmodule JacahBackendWeb.CardPackController do
 
     with {:ok, %CardPack{} = card_pack} <- Game.update_card_pack(card_pack, card_pack_params) do
       render(conn, "show.json", card_pack: card_pack)
+    else
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> put_view(JacahBackendWeb.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
 
@@ -38,6 +50,8 @@ defmodule JacahBackendWeb.CardPackController do
 
     with {:ok, %CardPack{}} <- Game.delete_card_pack(card_pack) do
       send_resp(conn, :no_content, "")
+    else
+      {:error, :not_found} -> send_resp(conn, :not_found, "")
     end
   end
 end

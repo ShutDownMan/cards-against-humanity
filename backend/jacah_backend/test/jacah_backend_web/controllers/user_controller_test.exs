@@ -27,10 +27,10 @@ defmodule JacahBackendWeb.UserControllerTest do
 
       Enum.all?(json_response(conn, 200)["data"], fn user ->
         assert %{
-          "id" => id,
-          "email" => email,
-          "name" => name,
-          "role" => role
+          "id" => _id,
+          "email" => _email,
+          "name" => _name,
+          "role" => _role
         } = user
       end)
     end

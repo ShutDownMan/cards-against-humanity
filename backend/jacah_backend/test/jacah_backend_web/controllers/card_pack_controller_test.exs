@@ -22,7 +22,13 @@ defmodule JacahBackendWeb.CardPackControllerTest do
   describe "index" do
     test "lists all card_pack", %{conn: conn} do
       conn = get(conn, Routes.card_pack_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+
+      Enum.all?(json_response(conn, 200)["data"], fn card_pack ->
+        assert %{
+          "description" => _description,
+          "name" => _name
+        } = card_pack
+      end)
     end
   end
 

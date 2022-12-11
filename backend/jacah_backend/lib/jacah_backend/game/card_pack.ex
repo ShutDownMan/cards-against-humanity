@@ -16,6 +16,5 @@ defmodule JacahBackend.Game.CardPack do
     card_pack
     |> cast(attrs, [:description, :name])
     |> validate_required([:description, :name])
-    |> unique_constraint(:id)
   end
 end

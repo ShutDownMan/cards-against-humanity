@@ -11,8 +11,9 @@ defmodule JacahBackend.GameTest do
     @invalid_attrs %{description: nil, id: nil, name: nil}
 
     test "list_card_pack/0 returns all card_pack" do
-      card_pack = card_pack_fixture()
-      assert Game.list_card_pack() == [card_pack]
+      Enum.all?(Game.list_card_pack(), fn card_pack ->
+        assert %CardPack{} = card_pack
+      end)
     end
 
     test "get_card_pack!/1 returns the card_pack with given id" do
@@ -66,21 +67,28 @@ defmodule JacahBackend.GameTest do
 
     @invalid_attrs %{content: nil, id: nil}
 
-    test "list_card/0 returns all card" do
-      card = card_fixture()
-      assert Game.list_cards() == [card]
+    test "list_cards/0 returns all card" do
+      Enum.all?(Game.list_cards(), fn card ->
+        assert %Card{} = card
+      end)
     end
 
     test "get_card!/1 returns the card with given id" do
-      card = card_fixture()
+      card = card_fixture("65c0b9c0-e31f-11e4-aace-600308960662")
       assert Game.get_card!(card.id) == card
     end
 
     test "create_card/1 with valid data creates a card" do
-      valid_attrs = %{content: "some content"}
+      valid_attrs = %{
+        content: "some content",
+        pack_id: "65c0b9c0-e31f-11e4-aace-600308960662",
+        card_type: "answer"
+      }
 
       assert {:ok, %Card{} = card} = Game.create_card(valid_attrs)
       assert card.content == "some content"
+      assert card.pack_id == "65c0b9c0-e31f-11e4-aace-600308960662"
+      assert card.card_type == "answer"
     end
 
     test "create_card/1 with invalid data returns error changeset" do
@@ -88,7 +96,7 @@ defmodule JacahBackend.GameTest do
     end
 
     test "update_card/2 with valid data updates the card" do
-      card = card_fixture()
+      card = card_fixture("65c0b9c0-e31f-11e4-aace-600308960662")
       update_attrs = %{content: "some updated content"}
 
       assert {:ok, %Card{} = card} = Game.update_card(card, update_attrs)
@@ -96,19 +104,19 @@ defmodule JacahBackend.GameTest do
     end
 
     test "update_card/2 with invalid data returns error changeset" do
-      card = card_fixture()
+      card = card_fixture("65c0b9c0-e31f-11e4-aace-600308960662")
       assert {:error, %Ecto.Changeset{}} = Game.update_card(card, @invalid_attrs)
       assert card == Game.get_card!(card.id)
     end
 
     test "delete_card/1 deletes the card" do
-      card = card_fixture()
+      card = card_fixture("65c0b9c0-e31f-11e4-aace-600308960662")
       assert {:ok, %Card{}} = Game.delete_card(card)
       assert_raise Ecto.NoResultsError, fn -> Game.get_card!(card.id) end
     end
 
     test "change_card/1 returns a card changeset" do
-      card = card_fixture()
+      card = card_fixture("65c0b9c0-e31f-11e4-aace-600308960662")
       assert %Ecto.Changeset{} = Game.change_card(card)
     end
   end

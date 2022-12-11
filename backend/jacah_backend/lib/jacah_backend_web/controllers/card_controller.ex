@@ -21,7 +21,8 @@ defmodule JacahBackendWeb.CardController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(JacahBackendWeb.ChangesetView, "error.json", changeset: changeset)
+        |> put_view(JacahBackendWeb.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
 
@@ -39,7 +40,8 @@ defmodule JacahBackendWeb.CardController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(JacahBackendWeb.ChangesetView, "error.json", changeset: changeset)
+        |> put_view(JacahBackendWeb.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
 
